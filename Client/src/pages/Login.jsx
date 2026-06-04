@@ -3,8 +3,14 @@ import {HiOutlineSparkles, HiOutlineMicrophone} from "react-icons/hi"
 import {FcGoogle} from "react-icons/fc";
 import {HiOutlineBolt, HiOutlineCodeBracket} from "react-icons/hi2";
 import logo from "../assets/logo.png"
+import { linkWithCredential, signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../utils/firebase.js";
+import { ServerUrl } from "../App.jsx";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    const navigate = useNavigate()
     const FEATURES = [
         {
             icon: <HiOutlineMicrophone/>,
@@ -35,6 +41,21 @@ function Login() {
             desc: "Optimized Gemini AI responses.",
         },
     ];
+
+    const handleLogin = async() =>{
+        try {
+            const result = await signInWithPopup(auth,provider)
+            const {displayName, email} = result.user;
+            const res = await axios.post(ServerUrl + "/api/auth/google",{
+                name:displayName,
+                email},{withCredentials:true})
+                console.log(res.data);
+                navigate("/");
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-emerald-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
@@ -51,7 +72,7 @@ function Login() {
             <p className="mt-8 text-lg text-[#475569] leading-8 max-w-2xl">
                 Create customizable AI voice assistants that talk, guide users, and integrate into any website instantly.
             </p>
-            <button className="mt-10 h-16 px-8 rounded-2xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white text-lg font-semibold flex items-center gap-4 shadow-[0_20px_80px_rgba(139,92,246,0.25)] hover:scale-[1.02] transition cursor-pointer">
+            <button onClick={handleLogin} className="mt-10 h-16 px-8 rounded-2xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white text-lg font-semibold flex items-center gap-4 shadow-[0_20px_80px_rgba(139,92,246,0.25)] hover:scale-[1.02] transition cursor-pointer">
                 <FcGoogle className="text-3xl bg-white rounded-full"/>
                 Continue with Google
             </button>
