@@ -7,6 +7,7 @@ import Navbar from './Components/Navbar.jsx'
 import Billing from './pages/Billing.jsx'
 import Builder from './pages/Builder.jsx'
 import {Toaster} from "react-hot-toast"
+import axios from "axios"
 
 export const ServerUrl = "http://localhost:8000"
 

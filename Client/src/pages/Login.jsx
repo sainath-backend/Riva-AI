@@ -3,7 +3,7 @@ import {HiOutlineSparkles, HiOutlineMicrophone} from "react-icons/hi"
 import {FcGoogle} from "react-icons/fc";
 import {HiOutlineBolt, HiOutlineCodeBracket} from "react-icons/hi2";
 import logo from "../assets/logo.png"
-import { linkWithCredential, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../utils/firebase.js";
 import { ServerUrl } from "../App.jsx";
 import axios from "axios";
@@ -49,7 +49,8 @@ function Login({setUser}) {
             const {displayName, email} = result.user;
             const res = await axios.post(ServerUrl + "/api/auth/google",{
                 name:displayName,
-                email},{withCredentials:true})
+                email:email
+            },{withCredentials:true})
                 setUser(res.data)
                 toast.success("Login Successfully");
                 navigate("/");
@@ -84,7 +85,7 @@ function Login({setUser}) {
           {/* right */}
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-200/50 to-emerald-200/40 blur-[120px]"/>
-            <div className="relative rounded-[40px] border border-black/5 bg-white shadow-[0_20px_80px_rgba(0,0,0,06)] p-8 overflow-hidden">
+            <div className="relative rounded-[40px] border border-black/5 bg-white shadow-[0_20px_80px_rgba(0,0,0,0.06)] p-8 overflow-hidden">
             <div className="flex items-center justify-between">
                 <div>
                     <h2 className="mt-2 text-3xl font-bold text-[#081028]">
