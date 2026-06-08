@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import {FiPlus} from "react-icons/fi"
+import {FiPlus, FiTrash2} from "react-icons/fi"
+import {ServerUrl} from "../App.jsx"
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const THEMES = ["light", "dark", "glass", "neon"];
 
 const TONES = ["friendly", "professional", "sales"];
 
 function Builder({ user, setUser }) {
+
+  const [editAssistant,setEditAssistant] = useState(!user?.isSetupComplete)
   const [assistantName, setAssistantName] = useState(user?.assistantName || "");
   const [businessName, setBusinessName] = useState(user?.businessName || "");
   const [businessType, setBusinessType] = useState(user?.businessType || "");
@@ -19,6 +24,55 @@ function Builder({ user, setUser }) {
   const [pageName,setPageName] = useState("");
   const [pagePath,setPagePath] = useState("");
   const [pageKeywords,setPageKeywords] = useState("");
+  const [loading,setLoading] = useState(false)
+
+  const addPage = ()=>{
+    if(!pageName || !pagePath) return;
+
+    const newPage = {
+      name:pageName,
+      path:pagePath,
+      keywords:pageKeywords.split(",").map((k)=>k.trim())
+    }
+    setPages([...pages,newPage])
+    setPageName("");
+    setPagePath("")
+    setPageKeywords("")
+  }
+
+  const removePage = (index)=>{
+    const updatePages = pages.filter((_,i)=>i !== index)
+
+    setPages(updatePages)
+  }
+
+  const saveAssistant = async ()=>{
+    setLoading(true)
+    try {
+      const data = {
+        assistantName,
+        businessName,
+        businessType,
+        businessDescription,
+        tone,
+        theme,
+        geminiApiKey,
+        pages,
+      }
+
+      const res = await axios.post(ServerUrl + "/api/user/save-assistant", data,{withCredentials:true})
+      console.log(res.data)
+      setUser(res.data.user)
+      setEditAssistant(false)
+      toast.success("Assistant Saved Successfully")
+      setLoading(false)
+    } catch (error) {
+      toast.error("Failed to save assistant")
+      console.log(error)
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#f7f8fc] px-4 py-8">
       <div className="max-w-4xl mx-auto">
@@ -28,7 +82,7 @@ function Builder({ user, setUser }) {
           </h2>
           <p className="text-gray-500 mt-1">Customize your virtual assistant</p>
         </div>
-        <div className="space-y-6">
+        { editAssistant && <div className="space-y-6">
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
             <h2 className="text-lg font-semibold mb-5">Basic Information</h2>
             <div className="space-y-4">
@@ -138,7 +192,7 @@ function Builder({ user, setUser }) {
                   Assistant can redirect users
                 </p>
               </div>
-              <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white text-sm">
+              <button onClick={addPage} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white text-sm">
                 <FiPlus/> Add
               </button>
             </div>
@@ -157,10 +211,35 @@ function Builder({ user, setUser }) {
               className="border border-gray-200 rounded-2xl px-4 py-3"
               onChange={(e)=>setPageKeywords(e.target.value)}
               value={[pageKeywords]}/>
-
+            </div>
+            <div className="mt-5 space-y-3">
+              {
+                pages.map((page,index)=>(
+                  <div key={index}
+                  className="flex items-center justify-between border border-gray-100 rounded-2xl p-4">
+                    <div>
+                      <p className="font-medium">{page.name}</p>
+                      <p className="text-sm text-gray-400" >{page.path}</p>
+                    </div>
+                    <button onClick={()=>removePage(index)} 
+                      className="text-red-500">
+                        <FiTrash2/>
+                    </button>
+                  </div>
+                ))
+              }
             </div>
           </div>
-        </div>
+
+          <button 
+          onClick={saveAssistant}
+          disabled={loading} 
+          className="w-full h-14 rounded-2xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white font-semibold">
+            {
+              loading ? "Saving..." : user.isSetupComplete ? "Update Assistant" : "Save Assistant"
+            }
+          </button>
+        </div>}
       </div>
     </div>
   );
