@@ -10,6 +10,7 @@ import {Toaster} from "react-hot-toast"
 import axios from "axios"
 
 export const ServerUrl = "http://localhost:8000"
+export const CLIENT_URL = "http://localhost:5173"
 
 function App() {
   const [user,setUser] = useState(null);
