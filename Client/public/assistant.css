@@ -1,0 +1,314 @@
+
+/* toggle btn */
+.riva-btn{
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 68px;
+    height: 68px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: .3s;
+}
+
+/* popup */
+
+.riva-popup{
+    position:fixed;
+    right: 18px;
+    bottom: 98px;
+
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+
+    height: 580px;
+    min-height:580px;
+    max-height: 580px;
+
+    border-radius: 38px;
+    overflow: hidden;
+
+    z-index: 999999;
+    display: none;
+
+    box-shadow: 0 20px 80px rgba(0,0,0,.32);
+}
+
+.riva-overlay{
+    position: absolute;
+    inset: 0;
+}
+
+.riva-content{
+    position:relative;
+    z-index: 2;
+
+    width: 100%;
+    height: 100%;
+    padding: 18px 20px 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.riva-top{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.riva-orb-wrap{
+    position: relative;
+    margin-top: 2px;
+}
+
+.riva-orb-glow{
+    position: absolute;
+    inset: 0;
+    transform: scale(1.8);
+    border-radius: 999px;
+    filter: blur(75px);
+    opacity:.6;
+}
+
+.riva-orb{
+    position: relative;
+    width: 118px;
+    height: 118px;
+    border-radius: 999px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.04);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.riva-title{
+    margin-top: 14px;
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 700;
+    text-align: center;
+}
+
+.riva-sub{
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.riva-status{
+    margin-top: 18px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.riva-wave{
+    margin-top: 8px;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    height: 28px;
+    opacity: 0;
+    transition: 3s;
+}
+
+.riva-wave.active{
+    opacity: 1;
+}
+
+.riva-wave span{
+    width: 5px;
+    border-radius: 999px;
+    animation: wave 1.2s infinite ease-in-out;
+}
+
+.riva-wave span:nth-child(1){
+    height: 14px;
+}
+
+.riva-wave span:nth-child(2){
+    height: 28px;
+}
+.riva-wave span:nth-child(3){
+    height: 16px;
+}
+.riva-wave span:nth-child(4){
+    height: 34px;
+}
+.riva-wave span:nth-child(5){
+    height: 20px;
+}
+
+@keyframes wave{
+    0%{
+        opacity:.4;
+        transform: scaleY(.8);
+    }
+    50%{
+        opacity: 1;
+        transform: scaleY(1.2);
+    }
+    100%{
+        opacity:.4;
+        transform: scaleY(.8);
+    }
+}
+
+.riva-user-text{
+    margin-top: 10px;
+    min-height: 20px;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+    font-weight: 600;
+}
+
+.riva-ai-text{
+    margin-top: 2px;
+    min-height: 18px;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: center;
+    opacity: .82;
+}
+
+.riva-bottom{
+    position: relative;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.riva-mic{
+    position: relative;
+    z-index: 2;
+    width: 74px;
+    height: 74px;
+
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+
+    color: white;
+    font-size: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:.3s;
+
+    animation:micFloat 2.5s infinite ease-in-out;
+}
+
+.riva-mic:hover{
+    transform: scale(1.06);
+}
+
+@keyframes micFloat{
+    0%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform: translateY(-4px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+
+.riva-mic-icon{
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+/* dark theme */
+
+.theme-dark{
+    background: #050816;
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.theme-dark .riva-overlay{
+    background: 
+        radial-gradient(
+            circle at top,
+            rgba(168,85,247,.18),
+            transparent 45%
+        );
+}
+
+.theme-dark .riva-orb,
+.theme-dark .riva-orb-glow{
+    background:
+        linear-gradient(
+            135deg,
+            #4cc9ff,
+            #7c3aed,
+            #ec4899
+        );
+}
+
+.theme-dark .riva-title{
+    color: white;
+}
+
+.theme-dark .riva-sub{
+    color: rgba(255,255,255,.68);
+}
+
+.theme-dark .riva-status{
+    color: #22e3a6;
+}
+
+.theme-dark .riva-wave span{
+    background: #22e3a6;
+}
+
+.theme-dark .riva-user-text{
+    color: white;
+}
+
+.theme-dark .riva-ai-text{
+    color: rgba(255,255,255,.72);
+}
+
+/* dark theme buttons */
+
+.theme-dark .riva-mic,
+.theme-dark.riva-btn{
+    background: 
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #4f8cff
+        );
+    box-shadow: 
+        0 0 35px rgba(124,58,237,.55),
+        0 0 90px rgba(79,140,255,.38),
+        0 0 140px rgba(124,58,237,.22);
+}
+
