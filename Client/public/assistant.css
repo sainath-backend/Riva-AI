@@ -16,6 +16,11 @@
     overflow: hidden;
     transition: .3s;
 }
+.riva-btn img{
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
 
 /* popup */
 
@@ -299,7 +304,8 @@
 /* dark theme buttons */
 
 .theme-dark .riva-mic,
-.theme-dark.riva-btn{
+.theme-dark.riva-btn
+{
     background: 
         linear-gradient(
             135deg,
@@ -312,3 +318,246 @@
         0 0 140px rgba(124,58,237,.22);
 }
 
+/* light theme */
+
+.theme-light{
+    background: 
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eef6ff
+        );
+    border: 1px solid #dbeafe;
+}
+
+.theme-light .riva-overlay{
+    background: 
+        radial-gradient(
+            circle at top,
+            rgba(59,130,246,.12),
+            transparent 45%
+        );
+}
+
+.theme-light .riva-orb,
+.theme-light .riva-orb-glow{
+    background: 
+        linear-gradient(
+            135deg,
+            #7dd3fc,
+            #67e8f9,
+            #f5d0fe
+        );
+}
+
+.theme-light .riva-title{
+    color:#081028;
+}
+
+.theme-light .riva-sub{
+    color: #475569;
+}
+.theme-light .riva-status{
+    color: #3b82f6;
+}
+
+.theme-light .riva-wave span{
+    background: #60a5fa;
+}
+
+.theme-light .riva-user-text{
+    color: #081028;
+}
+
+.theme-light .riva-ai-text{
+    color: #475569;
+}
+
+/* light theme buttons */
+
+.theme-light .riva-mic,
+.theme-light.riva-btn{
+    background: 
+        linear-gradient(
+            135deg,
+            #60a5fa,
+            #06b6d4
+        );
+
+    /* large soft glow */
+
+    box-shadow:
+        0 0 30px rgba(59,130,246,.38),
+        0 0 85px rgba(6,182,212,.28),
+        0 0 130px rgba(59,130,246,.16);
+}
+
+/* glass theme */
+
+.theme-glass{
+    background: 
+        rgba(0,0,0,.28);
+    backdrop-filter: blur(45px);
+
+    -webkit-backdrop-filter: blur(45px);
+    
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.theme-glass .riva-overlay{
+    background: 
+        radial-gradient(
+            circle at top,
+            rgba(255,255,255,.05),
+        
+        );
+}
+
+.theme-glass .riva-orb,
+.theme-glass .riva-orb-glow{
+    background: 
+        linear-gradient(
+            135deg,
+            #bae6fd,
+            #c4b5fd,
+            #f5d0fe
+        );
+}
+
+.theme-glass .riva-title{
+    color: white;
+}
+.theme-glass .riva-sub{
+    color: rgba(255,255,255,.75);
+}
+.theme-glass .riva-status{
+    color: #a5f3fc;
+}
+
+.theme-glass .riva-wave span{
+    background: #a5f3fc;
+}
+
+.theme-glass .riva-user-text{
+    color: white;
+}
+.theme-glass .riva-ai-text{
+    color: rgba(255,255,255,.72);
+}
+/* glass theme buttons */
+
+.theme-glass .riva-mic,
+.theme-glass.riva-btn{
+    background: 
+        linear-gradient(
+            135deg,
+            #38bff8a3,
+            #8a5cf6a8
+        );
+    /* frosted neon glow */
+    box-shadow: 
+        0 0 35px rgba(34,211,238,.34),
+        0 0 95px rgba(139,92,246,.28),
+        0 0 150px rgba(56,189,248,.18);
+}
+
+/* neon theme */
+
+.theme-neon{
+    background: #03120d;
+    border: 1px solid rgba(16,185,129,.18);
+}
+
+.theme-neon .riva-overlay{
+    background: 
+        radial-gradient(
+            circle at top,
+            rgba(16,185,129,.18),
+            transparent 45%
+        );
+}
+
+.theme-neon .riva-orb,
+.theme-neon .riva-orb-glow{
+    background: 
+        linear-gradient(
+            135deg,
+            #34d399,
+            #10b981,
+            #14b8a6
+        );
+}
+
+.theme-neon .riva-title{
+    color: #ecfdf5;
+}
+
+.theme-neon .riva-sub{
+    color: rgba(209,250,229,.72);
+}
+
+.theme-neon .riva-status{
+    color: #6ee7b7;
+}
+.theme-neon .riva-wave span{
+    background: #6ee7b7;
+}
+
+.theme-neon .riva-user-text{
+    color: #ecfdf5;
+}
+
+.theme-neon .riva-ai-text{
+    color: rgba(209,250,229,.75);
+}
+
+/* neon theme buttons */
+
+.theme-neon .riva-mic,
+.theme-neon.riva-btn{
+    background: 
+        linear-gradient(
+            135deg,
+            #10b981,
+            #22c55e
+        );
+    /* strong neon glow */
+    box-shadow: 
+        0 0 38px rgba(16,185,129,.45),
+        0 0 100px rgba(34,197,94,.32),
+        0 0 160px rgba(16,185,129,.20);
+}
+
+@media(max-width:640px){
+    .riva-popup{
+        width: 340px;
+        min-width: 340px;
+        max-width: 340px;
+
+        height: 500px;
+        min-height: 560px;
+        max-height: 560px;
+
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 82px;
+
+        border-radius:30px;
+    }
+    .riva-btn{
+        width: 64px;
+        height: 64px;
+        right: 14px;
+        bottom: 14px;
+    }
+    .riva-btn img{
+        width: 30px;
+        height: 30px;
+    }
+    .riva-title{
+        font-size: 26px;
+    }
+    .riva-sub{
+        font-size: 13px;
+    }
+}
