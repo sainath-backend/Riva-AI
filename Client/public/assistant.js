@@ -7,7 +7,7 @@
 
     const theme = "dark"
 
-    const assistantConfig = null
+    let assistantConfig = null
 
     // load CSS
     const link = document.createElement("link")
@@ -95,5 +95,38 @@
         open = !open;
         popup.style.display = open ? "flex":"none";
     }
+
+    // load Assistant
+
+    const loadAssistant = async ()=>{
+        try {
+            const res = await fetch(`http://localhost:8000/api/assitant/config/${userId}`)
+            const data = await res.json()
+            
+            if(data)
+            {
+                assistantConfig = data.user
+            }
+        } catch (error) {
+            console.log("Assistant load Error:",error);
+        }
+    }
+
+    const applyConfig = ()=>{
+        if(!assistantConfig) return;
+        popup.className = `riva-popup theme-${assistantConfig.theme}`
+        button.className = `riva-btn theme-${assistantConfig.theme}`
+
+        const title = popup.querySelector(".riva-title")
+        title.innerHTML = `Hello! I'm ${assistantConfig.assistantName}`;
+        const subTitle = popup.querySelector(".riva-sub")
+        subTitle.innerHTML =`
+        Welcome to
+        ${assistantConfig.businessName}.
+        <br/>
+        Ask anything about your website.
+        `;
+    }
+    loadAssistant();
 
 })();
