@@ -106,6 +106,7 @@
             if(data)
             {
                 assistantConfig = data.user
+                applyConfig()
             }
         } catch (error) {
             console.log("Assistant load Error:",error);
@@ -128,5 +129,104 @@
         `;
     }
     loadAssistant();
+
+    //Element
+
+    const status = popup.querySelector(".riva-status");
+    const wave = popup.querySelector(".riva-wave");
+    const userText = popup.querySelector(".riva-user-text");
+    const aiText = popup.querySelector(".riva-ai-text");
+    const mic = popup.querySelector(".riva-mic");
+
+    //text to speech
+
+    const speak = (text)=>{
+        window.SpeechSynthesis.cancel();
+        //show ai response
+        aiText.innerText = text;
+        status.innerText = "AI Speaking...";
+
+        const speech = new SpeechSynthesisUtterance(text)
+        speech.lang = "hi-IN";
+        speech.rate = 1;
+        speech.pitch = 1;
+        speech.volume = 1;
+        // Voice end
+        speech.onend = ()=>{
+            status.innerText = "Tap button to Speak";
+            wave.style.opacity = "0";
+        };
+        // start speaking
+        window.speechSynthesis.speak(speech);
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+    if(SpeechRecognition){
+        const recognition = new SpeechRecognition();
+        recognition.lang = "en-US";
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        mic.onclick = ()=>{
+            wave.style.opacity = "1";
+            status.innerText = "Listening...";
+            userText.innerText = "";
+            aiText.innerText = "";
+            recognition.start();
+        }
+        recognition.onresult = (e)=>{
+            const text = e.results[0][0].transcript
+
+            userText.innerText = "You: " + text;
+            recognition.stop();
+
+            setTimeout(async ()=>{
+                try {
+                    status.innerText = "Thinking...";
+
+                    const res = await fetch("http://localhost:8000/api/assistant/ask",{
+                        method:"POST",
+                        headers:{
+                            "Content-Type":"application/json",
+                        },
+                        body:JSON.stringify({
+                            message:text,
+                            userId
+                        })
+                    })
+
+                    const data = await res.json()
+                    console.log(data)
+                    if(data.success){
+                        if(data.action === "navigate"){
+                            speak(data.response)
+
+                            setTimeout(()=>{
+                                window.location.href = data.path
+                            },1500)
+                        }
+                        else{
+                            speak(data.aiResponse)
+                        }
+                    }
+                    else{
+                        speak("Response Error, Please Check your plan")
+                    }
+                } catch (error) {
+                    console.log(error)
+                    speak("AI Server Error")
+                }
+            },600)
+        };
+        recognition.onerror = ()=>{
+            status.innerText = "Tap button to speak";
+            wave.style.opacity = "0";
+        }
+    }
+    else{
+        status.innerText = "Speech Recognition not supported";
+    }
+
 
 })();

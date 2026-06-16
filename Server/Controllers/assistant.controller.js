@@ -113,7 +113,7 @@ export const askAssistant = async (req,res)=>{
         ${message}
         `;
 
-        const aiResponse = await generateGeminiResponse(prompt,user.geminiApiKey,user)
+        const aiResponse = await generateGeminiResponse({prompt,apikey: user.geminiApiKey,user})
 
         if(user.plan === "free"){
             user.totalMessages += 1
