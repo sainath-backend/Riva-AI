@@ -1,10 +1,62 @@
 import React from 'react'
+import { useEffect } from 'react';
+import {useNavigate} from 'react-router-dom'
+import toast from 'react-hot-toast'
+import axios from "axios"
+import {ServerUrl} from "../App.jsx"
 
-function Billing({user}) {
+function Billing({user,setUser}) {
+
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user && !user.isSetupComplete){
+      toast.error(
+        "Setup your assistant first"
+      );
+      navigate("/builder");
+    }
+  },[])
 
   const remainingMessages = Math.max(0,(user?.requestLimit || 0)-(user?.totalMessages || 0));
 
   const remainingDays = user?.proExpiresAt ? Math.max(0,Math.ceil((new Date(user.proExpiresAt)-new Date())/(1000*60*60*24))):0;
+
+  const handlePay = async  ()=>{
+    try {
+      const res = await axios.post(ServerUrl + "/api/billing/order",{plan: "pro"},{withCredentials: true})
+      const order = res.data.order
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount:
+          order.amount,
+        currency:
+          order.currency,
+        name:
+          "RivaAI",
+        description:
+          "Pro Plan",
+        order_id:
+          order.id,
+        handler:async(response)=>{
+          const verifyRes = await axios.post(ServerUrl + "/api/billing/verify", response, {withCredentials:true})
+          if(verifyRes.data.success){
+            toast.success("Payment Successfully")
+            setUser(verifyRes.data.user)
+          }
+        },
+        theme:{
+          color: "#7c3aed",
+        },
+      }
+
+      const razorpay = new window.Razorpay()
+      razorpay.open()
+    } catch (error) {
+      toast.error("Payment Failed")
+      console.log(error);
+    }
+  }
 
   return (
     <div className='min-h-screen bg-[#f7f8fc] px-4 py-10'>
@@ -82,6 +134,7 @@ function Billing({user}) {
                   <li>Premium Support</li>
               </ul>
               <button 
+              onClick={handlePay}
               disabled = {user?.plan === "pro"}
               className={`mt-8 h-14 w-full rounded-2xl font-semibold transition ${user?.plan === "pro"? "bg-emerald-200 text-black cursor-default":"bg-white text-[#081028] cursor-pointer"}`}>
                 {user?.plan === "pro"? "Active Plan" : "Upgrade Now"}
