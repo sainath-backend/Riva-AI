@@ -57,14 +57,14 @@ function Navbar({ user, setUser }) {
               <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 flex items-center justify-center flex-shrink-0">
                 <span className="text-white text-sm font-bold">
                   {" "}
-                  {user?.name.charAt(0).toUpperCase()}
+                  {user?.name?.charAt(0)?.toUpperCase()}
                 </span>
               </div>
 
               <div className="max-w-[140px]">
                 <p className="text-sm font-semibold text-gray-800 truncate">
                   {" "}
-                  {user.name}
+                  {user?.name}
                 </p>
                 <p className="text-xs text-gray-400 truncate">{user.email}</p>
               </div>
@@ -78,14 +78,12 @@ function Navbar({ user, setUser }) {
           </div>
         )}
 
-        {user && (
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden text-gray-600 hover:text-purple-500 transition-colors"
           >
             {menuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
           </button>
-        )}
       </div>
       {menuOpen && (
 <div className="md:hidden px-4 pb-4">
@@ -115,7 +113,7 @@ function Navbar({ user, setUser }) {
               </button>
             </div>
             <button onClick={()=>{setMenuOpen(false);handleLogout()}} className = 'mt-4 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-50 text-red-500 hover:bg-red-100 transition-colors text-sm font-medium' >
-              <FilLogOut size={16}/> LogOut
+              <FiLogOut size={16}/> LogOut
             </button>
           </div>
         </div>
