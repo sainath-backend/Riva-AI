@@ -14,7 +14,7 @@ const app = express();
 const privateCors = 
     cors({
         origin:[
-            "http://localhost:5173"
+            "https://riva-ai-x2ya.onrender.com"
         ],
         credentials: true
     });
