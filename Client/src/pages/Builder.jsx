@@ -146,7 +146,7 @@ function Builder({ user, setUser }) {
                   <br />
                   Example:
                 </p>
-                <pre className="mt-3 bg-[#0b1020] text-emerald-40 rounded-xl p-3 text-xs font-mono overflow-x-auto">
+                <pre className="mt-3 bg-[#0b1020] text-emerald-400 rounded-xl p-3 text-xs font-mono overflow-x-auto">
                   {`<body>
                   Your Website Content 
                   <script 
