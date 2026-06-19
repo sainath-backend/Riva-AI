@@ -9,7 +9,7 @@ import Builder from './pages/Builder.jsx'
 import {Toaster} from "react-hot-toast"
 import axios from "axios"
 
-export const ServerUrl = "http://localhost:8000"
+export const ServerUrl = "https://riva-ai-server.onrender.com"
 export const CLIENT_URL = "http://localhost:5173"
 
 function App() {
