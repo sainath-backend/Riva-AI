@@ -101,9 +101,9 @@ function AssistantPreview() {
         <div className={`absolute inset-0 ${current.overlay}`} />
         <div className='absolute top-4 right-4 sm:top-5 sm:right-5 z-30 flex items-center gap-2'>
         <button onClick={()=>setTheme("dark")} className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#050816] border transition-all cursor-pointer ${theme === "dark"?"border-purple-400 scale-110":"border-white/20"}`} />
-        <button onClick={()=>setTheme("light")} className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-blue-400 border transition-all cursor-pointer ${theme === "light"?"border-blue-400 scale-110":"border-gray-300"}`} />
-        <button onClick={()=>setTheme("glass")} className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/70 border transition-all cursor-pointer ${theme === "glass"?"border-white scale-110":"border-white/20"}`} />
-        <button onClick={()=>setTheme("neon")} className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-400 border transition-all cursor-pointer ${theme === "neon"?"border-emerald-300 scale-110":"border-transparent"}`} />
+        <button onClick={()=>setTheme("light")} className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white border transition-all cursor-pointer ${theme === "light"?"border-blue-400 scale-110":"border-gray-300"}`} />
+        <button onClick={()=>setTheme("glass")} className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-white/80 to-white/20 border transition-all cursor-pointer ${theme === "glass"?"border-white scale-110":"border-white/20"}`} />
+        <button onClick={()=>setTheme("neon")} className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-r from-emerald-400 to-green-500 border transition-all cursor-pointer ${theme === "neon"?"border-emerald-300 scale-110":"border-transparent"}`} />
         </div>
 
         <div className='relative z-20 flex flex-col items-center justify-between h-full px-5 py-6 sm:px-7 sm:py-8'>
