@@ -33,7 +33,7 @@ export const askAssistant = async (req,res)=>{
             return res.status(400).json({message:"Free limit reached"})
         }
         if(user.plan === "pro" && new Date(user.proExpiresAt)< new Date() ){
-            user.plan === "free"
+            user.plan = "free"
             await user.save()
             return res.status(400).json({message:"Pro plan expired"})
         }
