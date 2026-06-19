@@ -163,7 +163,7 @@
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
     if(SpeechRecognition){
-        const recognition = new SpeechRecognition();
+        const recognition = new speechRecognition();
         recognition.lang = "en-US";
         recognition.continuous = false;
         recognition.interimResults = false;
