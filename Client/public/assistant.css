@@ -23,19 +23,15 @@
 }
 
 /* popup */
-
 .riva-popup{
-    position:fixed;
-    right: 18px;
-    bottom: 98px;
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
 
-    width: 360px;
-    min-width: 360px;
-    max-width: 360px;
+    width: clamp(300px, 30vw, 380px);
+    max-width: 95vw;
 
-    height: 580px;
-    min-height:580px;
-    max-height: 580px;
+    height: min(80vh, 580px);
 
     border-radius: 38px;
     overflow: hidden;
@@ -44,6 +40,9 @@
     display: none;
 
     box-shadow: 0 20px 80px rgba(0,0,0,.32);
+
+    display: flex;
+    flex-direction: column;
 }
 
 .riva-overlay{
@@ -52,17 +51,22 @@
 }
 
 .riva-content{
-    position:relative;
+    position: relative;
     z-index: 2;
 
     width: 100%;
     height: 100%;
+
     padding: 18px 20px 14px;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+
+    justify-content: flex-start;
+    gap: 14px;
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .riva-top{
@@ -134,7 +138,7 @@
     gap: 5px;
     height: 28px;
     opacity: 0;
-    transition: 3s;
+    transition: opacity .3s ease;
 }
 
 .riva-wave.active{
@@ -199,55 +203,56 @@
 
 .riva-bottom{
     position: relative;
-    width: 130px;
-    height: 130px;
+    width: 100%;
+    padding: 18px 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .riva-mic{
-    position: relative;
-    z-index: 2;
-    width: 74px;
-    height: 74px;
+    width: clamp(56px, 14vw, 72px);
+    height: clamp(56px, 14vw, 72px);
 
-    border: none;
     border-radius: 999px;
-    cursor: pointer;
-
-    color: white;
-    font-size: 26px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    transition:.3s;
+    cursor: pointer;
 
-    animation:micFloat 2.5s infinite ease-in-out;
+    position: relative;
+    isolation: isolate;
+
+    animation: micFloat 2.5s infinite ease-in-out;
+    transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .riva-mic:hover{
-    transform: scale(1.06);
+    transform: scale(1.08);
 }
 
 @keyframes micFloat{
-    0%{
-        transform: translateY(0px);
+    0%,100%{
+        transform: translateY(0);
     }
     50%{
         transform: translateY(-4px);
     }
-    100%{
-        transform: translateY(0px);
-    }
 }
 
+.riva-mic img,
 .riva-mic-icon{
-    width: 30px;
-    height: 30px;
+    width: clamp(22px, 6vw, 28px);
+    height: clamp(22px, 6vw, 28px);
     object-fit: contain;
+
+    display: block;
+    margin: auto;
+}
+.riva-mic:active{
+    transform: scale(0.95);
 }
 
 /* dark theme */
@@ -409,7 +414,7 @@
         radial-gradient(
             circle at top,
             rgba(255,255,255,.05),
-        
+            transparent 45%
         );
 }
 
@@ -530,33 +535,28 @@
 
 @media(max-width:640px){
     .riva-popup{
-        width: 340px;
-        min-width: 340px;
-        max-width: 340px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
 
-        height: 500px;
-        min-height: 560px;
+        width: min(80vw, 300px);
+        height: 70vh;
         max-height: 560px;
 
-        right: 50%;
-        transform: translateX(50%);
-        bottom: 82px;
 
-        border-radius:30px;
+        bottom: 90px;
+        border-radius: 20px;
+        
     }
-    .riva-btn{
-        width: 64px;
-        height: 64px;
-        right: 14px;
-        bottom: 14px;
+
+    .riva-content{
+        padding: 14px;
     }
-    .riva-btn img{
-        width: 30px;
-        height: 30px;
-    }
+
     .riva-title{
-        font-size: 26px;
+        font-size: 20px;
     }
+
     .riva-sub{
         font-size: 13px;
     }
