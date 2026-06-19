@@ -68,7 +68,7 @@
                 <img
                 src = "https://riva-ai-x2ya.onrender.com/mic.svg"
                 alt = "mic"
-                class = "shifra-mic-icon"/>
+                class = "riva-mic-icon"/>
             </button>
         </div>
     </div>
@@ -96,39 +96,6 @@
         popup.style.display = open ? "flex":"none";
     }
 
-    let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    const headerDragArea = popup.querySelector(".riva-top");
-
-    headerDragArea.style.cursor = "grab";
-
-    headerDragArea.addEventListener("mousedown", (e) => {
-        isDragging = true;
-
-        const rect = popup.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-
-        popup.style.transition = "none";
-    });
-
-    document.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-
-        popup.style.left = `${e.clientX - offsetX}px`;
-        popup.style.top = `${e.clientY - offsetY}px`;
-
-        popup.style.right = "auto";
-        popup.style.bottom = "auto";
-        popup.style.position = "fixed";
-    });
-
-    document.addEventListener("mouseup", () => {
-        isDragging = false;
-        popup.style.transition = "0.2s ease";
-    });
     // load Assistant
 
     const loadAssistant = async ()=>{
