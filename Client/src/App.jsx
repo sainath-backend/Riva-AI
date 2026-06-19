@@ -10,7 +10,7 @@ import {Toaster} from "react-hot-toast"
 import axios from "axios"
 
 export const ServerUrl = "https://riva-ai-server.onrender.com"
-export const CLIENT_URL = "http://localhost:5173"
+export const CLIENT_URL = "https://riva-ai-x2ya.onrender.com"
 
 function App() {
   const [user,setUser] = useState(null);
