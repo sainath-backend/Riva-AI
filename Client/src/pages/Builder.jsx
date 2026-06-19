@@ -147,13 +147,12 @@ function Builder({ user, setUser }) {
                   Example:
                 </p>
                 <pre className="mt-3 bg-[#0b1020] text-emerald-400 rounded-xl p-3 text-xs font-mono overflow-x-auto">
-                  {`<body>
-                  Your Website Content 
-                  <script 
-                  src="${CLIENT_URL}/assistant.js" data-user-id="${user?._id}">
-                  </script>
-                  </body>`}
-                </pre>
+{`<body>
+  Your Website Content
+
+  <script src="${CLIENT_URL}/assistant.js" data-user-id="${user?._id}"></script>
+</body>`}
+</pre>
               </div>
               <p className="text-sm font-medium text-[#081028] mb-3 mt-3">
                 Embed Code
